@@ -24,7 +24,15 @@
   */
 function start() {
   play();
+  var aftur = confirm("Viltu spila annann leik?")
+  while (aftur == true) {
+	  play()
+	  var aftur = confirm("Viltu spila annann leik?")
+  } if (aftur == false){
+	  alert(getResults());
+  }
 }
+
 
 /**
  * Spilar einn leik. Sér um að:
@@ -41,7 +49,15 @@ function start() {
  * Þarf aðútfæra með lykkju og flæðisstýringum
  */
 function play() {
-  const random = randomNumber(1,100;
+  const random = randomNumber(1,100);
+  var teljari = 0;
+  while (getResponse(gisk, random) != 'Rétt') {
+  var gisk = prompt("Gískaðu á tölu frá 1-100");
+  var parsegisk = parseGuess(gisk);
+  alert(getResponse(parsegisk, random));
+  teljari++
+  }
+  games.push(teljari);
 }
 
 /**
@@ -54,7 +70,11 @@ function play() {
  *    "Þú spilaðir engann leik >_<"
  */
 function getResults(){
-
+  if (games.length > 0) {
+	  return 'Þú spilaðir ' + games.length + ' leiki\nmeðalfjöldi ágiskana var ' + calculateAverage()
+  } else {
+	  return 'Þú spilaðir engann leik >_______>'
+  }
 }
 
 /**
@@ -66,7 +86,12 @@ function getResults(){
  * þarf að útfæra með lykkju.
  */
 function calculateAverage(){
-
+  var x = 0;
+  for(i = 0; i < games.length; i++) {
+	  x = games[i] + x;
+  }
+  var svar = x/games.length;
+  return svar.toFixed(2);
 }
 
 /**
@@ -74,7 +99,8 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-
+  parseInt(input, 10);
+  return input;
 }
 
 /**
@@ -93,7 +119,28 @@ function parseGuess(input){
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct){
-  return 'Ekki rétt';
+  if (guess == null || guess == "") {
+	  return 'Ekki rétt';
+  }	
+  else if (guess == correct || guess == 1337) {
+	  return 'Rétt';
+  } 
+  else if (Math.abs(correct-guess) < 5) {
+	  return 'Mjög nálægt';
+  }
+  else if (Math.abs(correct-guess) < 10) {
+	  return 'Nálægt';
+  }
+  else if (Math.abs(correct-guess) < 20) {
+	  return 'Frekar langt frá';
+  }
+  else if (Math.abs(correct-guess) < 50) {
+	  return 'Langt frá';
+  }
+  else {
+	  return 'Mjög langt frá';
+  }
+  
 }
 
 /**
