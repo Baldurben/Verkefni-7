@@ -131,7 +131,7 @@ function parseGuess(input){
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct){
-  if (guess < 0 || guess == "") {
+  if (guess < 0 || guess == null) {
 	  return 'Ekki rétt';
   }	
   else if (guess == correct || guess == 1337) {
