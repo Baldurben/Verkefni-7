@@ -53,11 +53,19 @@ function play() {
   var teljari = 0;
   while (getResponse(gisk, random) != 'Rétt') {
   var gisk = prompt("Gískaðu á tölu frá 1-100");
-  var parsegisk = parseGuess(gisk);
-  alert(getResponse(parsegisk, random));
+  if (gisk === null) {
+	  break;
+  }
+  alert(getResponse(parseGuess(gisk), random));
   teljari++
   }
+  if ( gisk === null) {
+	  return;
+  }
+  else{
   games.push(teljari);
+  }
+ 
 }
 
 /**
@@ -99,8 +107,12 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-  parseInt(input, 10);
-  return input;
+  if (isNaN(parseInt(input)) == true) {
+	  return null;
+  }
+  else {
+	  return parseInt(input);	  
+  }
 }
 
 /**
@@ -119,7 +131,7 @@ function parseGuess(input){
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct){
-  if (guess == null || guess == "") {
+  if (guess < 0 || guess == "") {
 	  return 'Ekki rétt';
   }	
   else if (guess == correct || guess == 1337) {
